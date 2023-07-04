@@ -8,12 +8,15 @@ def initialize_parameters_deep(layer_dims):
     for l in range(1, L + 1):
         parameters['W' + str(l)] = np.random.randn(layer_dims[l], layer_dims[l-1]) * 0.01
         parameters['b' + str(l)] = np.zeros((layer_dims[l], 1))
-        
+        print(f'Shape of parameters W{l}: ',parameters['W' + str(l)].shape)  
+        print(f'Shape of parameters b{l}: ',parameters['b' + str(l)].shape) 
     return parameters
 
 def linear_forward(A, W, b):
     Z = np.dot(W, A) + b
     cache = (A, W, b)
+    print('Shape Z: ',Z.shape)
+    # print('Shape cache: ',cache.shape)
     return Z, cache
 
 def sigmoid(Z):
@@ -66,6 +69,7 @@ def compute_cost(AL, Y, parameters, lambd):
 
 def linear_backward(dZ, cache, lambd):
     A_prev, W, _ = cache
+    print('Shape of A_previous: ',A_prev.shape)
     m = A_prev.shape[1]
     
     dW = np.dot(dZ, A_prev.T) / m + (lambd / m) * W
